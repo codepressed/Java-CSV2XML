@@ -1,4 +1,4 @@
-# CSVtoXMLConverter
+# JAVA CSV to XML Converter
 * It is a console application with var args
 * Uses the traditional methodology to generate the xml (without a library), through
 of nodes and tree structure.
@@ -7,7 +7,10 @@ of nodes and tree structure.
 ## Project test
 
 ### CSV Input File 
-(You can find it [here](examples/grades.csv))
+
+The fields are separated by commas in the original file
+
+_(You can find it [here](examples/grades.csv))_
 ```
 Last name	First name	SSN	Test1	Test2	Test3	Test4	Final	Grades
 Alfalfa	Aloysius	123-45-6789	 40.0	    90.0	   100.0	    83.0	    49.0	D-
@@ -30,7 +33,7 @@ Heffalump	Harvey	632-79-9439	 30.0	     1.0	    20.0	    30.0	    40.0	C
 ```
 
 ## XML Output file
-(You can find it [here](examples/gradesOutput.xml))
+_(You can find it [here](examples/gradesOutput.xml))_
 ```
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
@@ -220,4 +223,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## [Donate](http://paypal.me/apesteguia)
 
-Any amount is welcome ☕
+Any amount is welcome ☕💕
