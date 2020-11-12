@@ -9,11 +9,17 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args){
 
-        //Initialization
+        /*/
+        Vars Initialization
+         */
         String csvFile = args[0];
         String xmlFile = args[1];
+        //String csvFile = "C:\\Users\\Dani\\src\\CodepressedConverter\\examples\\grades.csv";
+        //String xmlFile = "C:\\Users\\Dani\\src\\CodepressedConverter\\examples\\gradesOutput.xml";
 
-        //ArrayList of ArrayStrings Generation with CSV
+        /*
+        ArrayList of ArrayStrings Generation with CSV
+         */
         ArrayList<String[]> elements = null;
         try {
             elements = new Reader().CSVtoArrayList(csvFile);
@@ -21,7 +27,9 @@ public class Main {
             System.out.println("File wasn't found, error: "+e);;
         }
 
-        //XML Doc Generation with ArrayList
+        /*/
+        XML Doc Generation with ArrayList
+         */
         Document xmlDoc = null;
         try {
             xmlDoc = new Util().docBuilder(elements);
@@ -29,7 +37,9 @@ public class Main {
             System.out.println("Configuration error: "+e);;
         }
 
-        //Transform xml DOC to a xml FILE
+        /*/
+        Transform xml DOC to a xml FILE
+         */
         try {
             Util.transform(xmlDoc,xmlFile);
         } catch (TransformerException e) {
