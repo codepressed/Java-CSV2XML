@@ -73,7 +73,7 @@ public class Util {
     /*/
     XML Generation -> Transform DOC Data to XML Format
      */
-    public static void transform(Document xmlDoc, String xmlFile) throws TransformerException {
+    public static void transformDocToFile(Document xmlDoc, String xmlFile) throws TransformerException {
         TransformerFactory xmlTransformerFactory = TransformerFactory.newInstance();
         Transformer xmlTransformer = xmlTransformerFactory.newTransformer();
         xmlTransformer.setOutputProperty(OutputKeys.INDENT, "yes");
