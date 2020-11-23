@@ -24,6 +24,7 @@ public class Main {
         //Vars Initialization
         String csvFile = args[0];
         String xmlFile = args[1];
+        String elementName = args[2];
 
         //ArrayList of ArrayStrings Generation with CSV
         ArrayList<String[]> elements = null;
@@ -31,8 +32,8 @@ public class Main {
 
         //XML Doc Generation with ArrayList
         Document xmlDoc = null;
-            xmlDoc = new Util().docBuilder(elements);
-            Util.transformDocToFile(xmlDoc,xmlFile);
+            xmlDoc = new TabularToXMLConverter().docBuilder(elements,elementName);
+            TabularToXMLConverter.transformDocToFile(xmlDoc,xmlFile);
 
         } catch (IOException e) {
             e.printStackTrace();

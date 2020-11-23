@@ -15,12 +15,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-public class Util {
+public class TabularToXMLConverter {
 
-    /*/
-    DOC Generation -> XML with ArrayList String elements
-     */
-    public Document docBuilder(ArrayList<String[]> elements) throws ParserConfigurationException {
+    //DOC Generation -> XML with ArrayList String elements
+    public Document docBuilder(ArrayList<String[]> XMLelements, String elementName) throws ParserConfigurationException {
         DocumentBuilderFactory xmlFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder xmlBuilder = xmlFactory.newDocumentBuilder();
         Document xmlDoc = xmlBuilder.newDocument();
@@ -28,18 +26,16 @@ public class Util {
         Element rootElement = xmlDoc.createElement("root");
         xmlDoc.appendChild(rootElement);
 
-        Element mainElement = xmlDoc.createElement("elements");
+        Element mainElement = xmlDoc.createElement(elementName+"s");
         rootElement.appendChild(mainElement);
 
         boolean headerDefined = false; //First while will be to define header
-        String[] header = new String[elements.size()]; //Header initialization
+        String[] header = new String[XMLelements.size()]; //Header initialization
 
-        /*/
-        DOC Generation -> XML Generation of every ELEMENT
-        */
-        for (String[] node : elements) { //FOR every ArrayString
+        //DOC Generation -> XML Generation of every ELEMENT
+        for (String[] node : XMLelements) { //FOR every ArrayString
             if (headerDefined) {
-                Element nodesElements = xmlDoc.createElement("element");
+                Element nodesElements = xmlDoc.createElement(elementName);
                 mainElement.appendChild(nodesElements);
 
                 for (int j = 0; j < node.length; j++) {
@@ -50,17 +46,15 @@ public class Util {
                     nodesValues.appendChild(nodeTxt);
                 }
             }
-            /*/
-            DOC Generation -> Array Generation of every COL Name for NODES
-            */
+            //DOC Generation -> Array Generation of every COL Name for NODES
             else {
                 header = node;
-                for (int k = 0; k < node.length; k++) {
-                    header[k] = header[k].replaceAll("[^a-zA-Z0-9]", "");
-                    //We want to make sure NODE isn't NUMERIC. If it is, we make a patch
+                for (int j = 0; j < node.length; j++) {
+                    header[j] = header[j].replaceAll("[^a-zA-Z0-9]", "");
+                    //Avoid a fullint
                     try {
-                        Integer.parseInt(header[k]);
-                        header[k] = "node" + header[k];
+                        Integer.parseInt(header[j]);
+                        header[j] = "node" + header[j];
                     } catch (NumberFormatException e) {
                     }
                 }
@@ -70,9 +64,7 @@ public class Util {
         return (xmlDoc);
     }
 
-    /*/
-    XML Generation -> Transform DOC Data to XML Format
-     */
+    //XML Generation -> Transform DOC Data to XML Format
     public static void transformDocToFile(Document xmlDoc, String xmlFile) throws TransformerException {
         TransformerFactory xmlTransformerFactory = TransformerFactory.newInstance();
         Transformer xmlTransformer = xmlTransformerFactory.newTransformer();

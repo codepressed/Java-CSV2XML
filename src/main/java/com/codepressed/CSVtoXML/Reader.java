@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 public class Reader {
 
-    /*/
-    ArrayList Generation ArrayStrings  with the CSV Data
-     */
+    //ArrayList Generation ArrayStrings  with the CSV Data
     public ArrayList<String[]> CSVtoArrayList(String csvFile) throws IOException {
         ArrayList<String[]> elements = new ArrayList<String[]>();
         String csvSplit = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
