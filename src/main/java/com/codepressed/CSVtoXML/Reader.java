@@ -10,8 +10,8 @@ public class Reader {
     public ArrayList<String[]> CSVtoArrayList(String csvFile) throws IOException {
         ArrayList<String[]> elements = new ArrayList<String[]>();
         String csvSplit = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
-        String line = "";
         BufferedReader csvReader = null;
+        String line;
 
         try {
             csvReader = new BufferedReader(new FileReader(csvFile));

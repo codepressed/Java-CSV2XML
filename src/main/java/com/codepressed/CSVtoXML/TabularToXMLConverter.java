@@ -19,13 +19,15 @@ public class TabularToXMLConverter {
 
     //DOC Generation -> XML with ArrayList String elements
     public Document docBuilder(ArrayList<String[]> XMLelements, String elementName) throws ParserConfigurationException {
+        if (elementName == null){
+            elementName = "element";
+        }
         DocumentBuilderFactory xmlFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder xmlBuilder = xmlFactory.newDocumentBuilder();
         Document xmlDoc = xmlBuilder.newDocument();
 
         Element rootElement = xmlDoc.createElement("root");
         xmlDoc.appendChild(rootElement);
-
         Element mainElement = xmlDoc.createElement(elementName+"s");
         rootElement.appendChild(mainElement);
 
