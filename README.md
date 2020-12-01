@@ -3,7 +3,8 @@
 * Uses the traditional methodology to generate the xml (without a library), through
 of nodes and tree structure.
 * Can read ANY CSV File
-
+* Args are: Input file, output file, element node name and optionally, if you add -s program will read the csv
+as semicolon-separated values instead of comma-separated values.
 ## Project test
 
 ### CSV Input File 
