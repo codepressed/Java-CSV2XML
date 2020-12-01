@@ -24,7 +24,7 @@ public class Main {
             String csvFile = args[0];
             String xmlFile = args[1];
             String elementName;
-            String csvSplit = StringUtils.EMPTY;
+            String csvSplit = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
 
             try {
                 elementName = args[2];
@@ -37,7 +37,6 @@ public class Main {
                 if (args[3] == "-s")
                     csvSplit = ";(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
             } catch (ArrayIndexOutOfBoundsException e){
-                    csvSplit = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
             }
 
                 try {
