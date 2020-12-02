@@ -40,11 +40,8 @@ public class Main {
             }
 
                 try {
-                    //ArrayList of ArrayStrings Generation with CSV
                     ArrayList<String[]> elements;
                     elements = new Reader().CSVtoArrayList(csvFile, csvSplit);
-
-                    //XML Doc Generation with ArrayList
                     Document xmlDoc;
                     xmlDoc = new XMLDoc().docBuilder(elements, elementName);
                     XMLTransformer.transformDocToFile(xmlDoc, xmlFile);

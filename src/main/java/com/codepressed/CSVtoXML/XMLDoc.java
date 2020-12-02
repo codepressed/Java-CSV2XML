@@ -12,7 +12,13 @@ import java.util.ArrayList;
 
 public class XMLDoc {
 
-    //DOC Generation -> XML with ArrayList String elements
+    /**
+     *
+     * @param XMLelements ArrayList of CSV Values
+     * @param elementName Name fixed for node tree
+     * @return Final doc
+     * @throws ParserConfigurationException
+     */
     public Document docBuilder(ArrayList<String[]> XMLelements, String elementName) throws ParserConfigurationException {
         if (elementName == null){
             elementName = "element";

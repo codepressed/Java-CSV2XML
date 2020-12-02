@@ -13,7 +13,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class XMLTransformer {
-    //XML Generation -> Transform DOC Data to XML Format
+    /** Transforms DOC Data to XML Format
+     * @param xmlDoc
+     * @param xmlFile
+     * @throws TransformerException
+     */
     public static void transformDocToFile(Document xmlDoc, String xmlFile) throws TransformerException {
         TransformerFactory xmlTransformerFactory = TransformerFactory.newInstance();
         Transformer xmlTransformer = xmlTransformerFactory.newTransformer();
