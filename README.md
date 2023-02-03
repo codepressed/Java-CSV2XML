@@ -3,8 +3,19 @@
 * Uses the traditional methodology to generate the xml (without a library), through
 of nodes and tree structure.
 * Can read ANY CSV File
-* Args are: Input file, output file, element node name and optionally, if you add -s program will read the csv
+* Args are:
+  - [0] Input file 
+  - [1] Output file 
+  - [2] Element node name and optionally, 
+  - [3] -s parameter, if you add it, program will read the csv
 as semicolon-separated values instead of comma-separated values.
+
+Example of command to compile and run the program for comma-separated values:
+```
+javac CSV2XML.java
+java CSV2XML inputfilePath outputFilePath element -s
+```
+
 ## Project test
 
 ### CSV Input File 
