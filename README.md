@@ -2,8 +2,9 @@
 * It is a console application with var args
 * Uses the traditional methodology to generate the xml (without a library), through
 of nodes and tree structure.
-* Can read ANY CSV File
-* Args are:
+* Can read ANY CSV File (comma-separated & semicolon-separated)
+
+Args are:
   - [0] Input file 
   - [1] Output file 
   - [2] Element node name and optionally, 
