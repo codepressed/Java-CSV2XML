@@ -1,4 +1,7 @@
 # JAVA CSV to XML Converter
+
+![CSV to XML convert img](csvtoxml.jpg)
+
 * It is a console application with var args
 * Uses the traditional methodology to generate the xml (without a library), through
 of nodes and tree structure.
