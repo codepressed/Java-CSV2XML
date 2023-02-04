@@ -1,9 +1,10 @@
-package com.codepressed.CSVtoXML;
+package com.codepressed.csvToXml;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,7 +15,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,30 +28,35 @@ public class XMLutils {
 
     private static final Logger logger = Logger.getLogger(XMLutils.class.getName());
 
+    private XMLutils(){
+        throw new IllegalStateException("This is a utility class.");
+    }
+
     public static boolean writeXmlDocumentToFile(Document xmlDoc, String xmlFilePath) {
         try {
             TransformerFactory xmlTransformerFactory = TransformerFactory.newInstance();
+            //To protect from XXE attacks
+            xmlTransformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            xmlTransformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+
             Transformer xmlTransformer = xmlTransformerFactory.newTransformer();
             xmlTransformer.setOutputProperty(OutputKeys.INDENT, "yes");
             xmlTransformer.setOutputProperty(OutputKeys.METHOD, "xml");
             xmlTransformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             xmlTransformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
-            try (FileOutputStream outputStream = new FileOutputStream(new File(xmlFilePath))) {
+            try (FileOutputStream outputStream = new FileOutputStream(xmlFilePath)) {
                 xmlTransformer.transform(new DOMSource(xmlDoc), new StreamResult(outputStream));
             }
             return true;
+
         } catch (TransformerException | IOException e) {
             logger.log(Level.SEVERE, "Error writing xml document to file", e);
             return false;
         }
     }
 
-    public static Document createXmlDocument(List<String[]> XMLelements, String elementName) {
-        if (elementName == null) {
-            elementName = "element";
-        }
-
+    public static Document createXmlDocument(List<String[]> xmlElements, String elementName) {
         try {
             DocumentBuilderFactory xmlFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder xmlBuilder = xmlFactory.newDocumentBuilder();
@@ -63,15 +68,15 @@ public class XMLutils {
             rootElement.appendChild(mainElement);
 
             boolean headerDefined = false;
-            String[] header = new String[XMLelements.size()];
+            String[] header = new String[xmlElements.size()];
 
-            for (String[] node : XMLelements) {
+            for (String[] node : xmlElements) {
                 if (headerDefined) {
                     Element nodesElements = xmlDoc.createElement(elementName);
                     mainElement.appendChild(nodesElements);
 
                     for (int j = 0; j < node.length; j++) {
-                        node[j] = node[j].replaceAll("\"", "").trim();
+                        node[j] = node[j].replace("\"", "").trim();
                         Element nodesValues = xmlDoc.createElement(header[j]);
                         nodesElements.appendChild(nodesValues);
                         Text nodeTxt = xmlDoc.createTextNode(node[j]);
@@ -81,10 +86,8 @@ public class XMLutils {
                     header = node;
                     for (int j = 0; j < node.length; j++) {
                         header[j] = header[j].replaceAll("[^a-zA-Z0-9]", "");
-                        try {
-                            Integer.parseInt(header[j]);
+                        if(isParsableToInt(header[j])) {
                             header[j] = "node" + header[j];
-                        } catch (NumberFormatException e) {
                         }
                     }
                     headerDefined = true;
@@ -96,6 +99,7 @@ public class XMLutils {
             return null;
         }
     }
+
 
     public static List<String[]> readCsvFile(String csvFilePath, String separator)  {
         List<String[]> elements = new ArrayList<>();
@@ -110,6 +114,16 @@ public class XMLutils {
             logger.log(Level.SEVERE, "Error reading the csv file", e);
         }
         return elements;
+    }
+
+    public static boolean isParsableToInt(String input){
+        try{
+            Integer.parseInt(input);
+            return true;
+        }catch(NumberFormatException e){
+            logger.log(Level.INFO, "One of the columns is a int. We will add to it a 'node' prefix.");
+            return false;
+        }
     }
 
 }
